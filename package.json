@@ -1,20 +1,17 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "electron-codeanywhere",
+  "version": "0.0.1",
+  "description": "CodeAnywhere Desktop App [Unofficial]",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/skydiver",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "CodeAnywhere"
   ],
-  "author": "GitHub",
+  "author": "Martin M.",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.6.2"
