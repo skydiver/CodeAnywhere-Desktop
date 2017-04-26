@@ -2,6 +2,7 @@ const electron = require('electron');
 const trayIcon = require('./tray');
 const path = require('path');
 const config = require('./config.json');
+const windowStateKeeper = require('electron-window-state');
 
 let mainWindow;
 
@@ -11,30 +12,32 @@ const iconPath = path.join(__dirname, config.icon);
 
 function createWindow() {
 
-    let bounds = electron.screen.getPrimaryDisplay().bounds;
-    let x = bounds.x + ((bounds.width - config.width) / 2);
-    let y = bounds.y + ((bounds.height - config.height) / 2);
+    /* Set default window dimensions */
+    let mainWindowState = windowStateKeeper({
+        defaultWidth: config.width,
+        defaultHeight: config.height
+    });
 
+    /* Create main window */
     mainWindow = new BrowserWindow({
-        width: config.width,
-        height: config.height,
-        x: x,
-        y: y,
+        width: mainWindowState.width,
+        height: mainWindowState.height,
+        x: mainWindowState.x,
+        y: mainWindowState.y,
         icon: iconPath
     });
 
-    mainWindow.loadURL("https://codeanywhere.com/editor/");
-
-    /* Start maximized */
-    if(config.maximized) {
-        mainWindow.maximize();
-    }
+    /* Load URL */
+    mainWindow.loadURL(config.url);
 
     /* Hide menubar */
     mainWindow.setMenu(null);
 
     /* Show tray icon */
     trayIcon(electron, mainWindow, iconPath);
+
+    /* Remember window state */
+    mainWindowState.manage(mainWindow);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -44,14 +47,14 @@ function createWindow() {
     });
 
     /* Minimize to tray */
-    mainWindow.on('minimize',function(event){
+    mainWindow.on('minimize', function (event) {
         event.preventDefault();
         mainWindow.hide();
     });
 
     /* Close to tray */
     mainWindow.on('close', function (event) {
-        if(!app.isQuiting){
+        if (!app.isQuiting) {
             event.preventDefault();
             mainWindow.hide();
         }
