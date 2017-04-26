@@ -7,6 +7,12 @@ module.exports = function (electron, mainWindow, iconPath) {
 
     var contextMenu = Menu.buildFromTemplate([
         {
+            label: 'Show App',
+            click: function () {
+                mainWindow.show();
+            }
+        },
+        {
             label: 'Toggle DevTools',
             accelerator: 'Alt+Command+I',
             click: function () {
@@ -22,6 +28,7 @@ module.exports = function (electron, mainWindow, iconPath) {
             accelerator: 'Command+Q',
             selector: 'terminate:',
             click: function () {
+                electron.app.isQuiting = true;
                 electron.app.quit();
             }
         }
