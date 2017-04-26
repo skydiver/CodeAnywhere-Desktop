@@ -1,10 +1,7 @@
-module.exports = function (electron, mainWindow) {
-
-    const path = require('path');
+module.exports = function (electron, mainWindow, iconPath) {
 
     const Tray = electron.Tray
     const Menu = electron.Menu
-    const iconPath = path.join(__dirname, 'favicon-152.png');
 
     let appIcon = new Tray(iconPath);
 
