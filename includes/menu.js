@@ -1,6 +1,24 @@
 module.exports = {
 
-    trayContextMenu: function () {
+    getMenuBar: function () {
+        return ModuleElectron.Menu.buildFromTemplate([{
+            label: 'CodeAnywhere',
+            submenu: [
+                this.menuAbout(),
+                this.menuQuit()
+            ]
+        }]);
+    },
+
+    doTrayIcon: function () {
+        const Tray = ModuleElectron.Tray;
+        const contextMenu = this.getTrayMenu();
+        const appIcon = new Tray(ModuleIconPath);
+        appIcon.setToolTip('CodeAnywhere Desktop');
+        appIcon.setContextMenu(contextMenu);
+    },
+
+    getTrayMenu: function () {
 
         return ModuleElectron.Menu.buildFromTemplate([
             {

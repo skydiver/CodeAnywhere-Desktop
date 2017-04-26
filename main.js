@@ -1,7 +1,7 @@
 const electron = require('electron');
-const trayIcon = require('./tray');
-const path = require('path');
 const config = require('./config.json');
+const appMenu = require('./includes/menu');
+const path = require('path');
 const windowStateKeeper = require('electron-window-state');
 
 let mainWindow;
@@ -27,14 +27,19 @@ function createWindow() {
         icon: iconPath
     });
 
+    /* Set globals to use on Modules */
+    global.ModuleElectron = electron;
+    global.ModuleWindow = mainWindow;
+    global.ModuleIconPath = iconPath;
+
     /* Load URL */
     mainWindow.loadURL(config.url);
 
-    /* Hide menubar */
-    mainWindow.setMenu(null);
+    /* Show menubar */
+    mainWindow.setMenu(appMenu.getMenuBar());
 
     /* Show tray icon */
-    trayIcon(electron, mainWindow, iconPath);
+    appMenu.doTrayIcon();
 
     /* Remember window state */
     mainWindowState.manage(mainWindow);
