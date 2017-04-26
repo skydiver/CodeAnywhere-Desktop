@@ -1,7 +1,7 @@
 module.exports = function (electron, mainWindow, iconPath) {
 
-    const Tray = electron.Tray
-    const Menu = electron.Menu
+    const Tray = electron.Tray;
+    const Menu = electron.Menu;
 
     var openAboutWindow = require('about-window').default;
 
@@ -49,4 +49,4 @@ module.exports = function (electron, mainWindow, iconPath) {
     appIcon.setToolTip('This is my application.');
     appIcon.setContextMenu(contextMenu);
 
-}
+};
