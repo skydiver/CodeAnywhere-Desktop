@@ -3,6 +3,8 @@ module.exports = function (electron, mainWindow, iconPath) {
     const Tray = electron.Tray
     const Menu = electron.Menu
 
+    var openAboutWindow = require('about-window').default;
+
     let appIcon = new Tray(iconPath);
 
     var contextMenu = Menu.buildFromTemplate([
@@ -22,6 +24,16 @@ module.exports = function (electron, mainWindow, iconPath) {
         },
         {
             type: 'separator'
+        },
+        {
+            label: 'About',
+            click: function() {
+                openAboutWindow({
+                    icon_path: iconPath,
+                    copyright: 'Copyright (c) ' + new Date().getFullYear() + ' by Martin M.',
+                    homepage: 'http://github.com/skydiver',
+                })
+            }
         },
         {
             label: 'Quit',

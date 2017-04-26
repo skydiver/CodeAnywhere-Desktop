@@ -17,6 +17,7 @@
     "electron": "~1.6.2"
   },
   "dependencies": {
+    "about-window": "^1.6.1",
     "electron-window-state": "^4.1.1"
   }
 }
