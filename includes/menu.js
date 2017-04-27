@@ -27,14 +27,14 @@ module.exports = {
                     ModuleWindow.show();
                 }
             },
-            {
-                label: 'Toggle DevTools',
-                accelerator: 'Alt+Command+I',
-                click: function () {
-                    ModuleWindow.show();
-                    ModuleWindow.toggleDevTools();
-                }
-            },
+            // {
+            //     label: 'Toggle DevTools',
+            //     accelerator: 'Alt+Command+I',
+            //     click: function () {
+            //         ModuleWindow.show();
+            //         ModuleWindow.toggleDevTools();
+            //     }
+            // },
             {
                 type: 'separator'
             },
@@ -53,6 +53,11 @@ module.exports = {
                     icon_path: ModuleIconPath,
                     copyright: 'Copyright (c) ' + new Date().getFullYear() + ' by Martin M.',
                     homepage: 'http://github.com/skydiver',
+                    win_options: {
+                        maximizable: false,
+                        minimizable: false,
+                        resizable: false
+                    }
                 })
             }
         };
@@ -61,7 +66,7 @@ module.exports = {
     menuQuit: function () {
         return {
             label: 'Quit',
-            accelerator: 'Command+Q',
+            // accelerator: 'Command+Q',
             selector: 'terminate:',
             click: function () {
                 ModuleElectron.app.isQuiting = true;
