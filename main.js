@@ -2,6 +2,7 @@ const electron = require('electron');
 const config = require('./config.json');
 const appMenu = require('./includes/menu');
 const path = require('path');
+const url = require('url');
 const windowStateKeeper = require('electron-window-state');
 
 let mainWindow;
@@ -33,7 +34,12 @@ function createWindow() {
     global.ModuleIconPath = iconPath;
 
     /* Load URL */
-    mainWindow.loadURL(config.url);
+    //mainWindow.loadURL(config.url);   // DISABLED FOR NOW ...
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
 
     /* Show menubar */
     mainWindow.setMenu(appMenu.getMenuBar());
