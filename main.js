@@ -6,6 +6,7 @@ const url = require('url');
 const windowStateKeeper = require('electron-window-state');
 
 let mainWindow;
+let Tray;
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -45,7 +46,11 @@ function createWindow() {
     mainWindow.setMenu(appMenu.getMenuBar());
 
     /* Show tray icon */
-    appMenu.doTrayIcon();
+    Tray = electron.Tray;
+    let contextMenu = appMenu.getTrayMenu();
+    let appIcon = new Tray(iconPath);
+    appIcon.setToolTip('CodeAnywhere Desktop');
+    appIcon.setContextMenu(contextMenu);
 
     /* Remember window state */
     mainWindowState.manage(mainWindow);

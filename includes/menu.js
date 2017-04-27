@@ -10,14 +10,6 @@ module.exports = {
         }]);
     },
 
-    doTrayIcon: function () {
-        const Tray = ModuleElectron.Tray;
-        const contextMenu = this.getTrayMenu();
-        const appIcon = new Tray(ModuleIconPath);
-        appIcon.setToolTip('CodeAnywhere Desktop');
-        appIcon.setContextMenu(contextMenu);
-    },
-
     getTrayMenu: function () {
 
         return ModuleElectron.Menu.buildFromTemplate([
@@ -56,7 +48,7 @@ module.exports = {
                     win_options: {
                         maximizable: false,
                         minimizable: false,
-                        resizable: false
+                        resizeable: false
                     }
                 })
             }
@@ -66,7 +58,7 @@ module.exports = {
     menuQuit: function () {
         return {
             label: 'Quit',
-            // accelerator: 'Command+Q',
+            accelerator: 'Command+Q',
             selector: 'terminate:',
             click: function () {
                 ModuleElectron.app.isQuiting = true;
