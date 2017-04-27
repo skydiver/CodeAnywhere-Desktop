@@ -1,48 +1,61 @@
 module.exports = {
 
     getMenuBar: function () {
-        return ModuleElectron.Menu.buildFromTemplate([{
-            label: 'CodeAnywhere',
-            submenu: [
-                {
-                    label: 'Logout',
-                    click: function () {
-                        ModuleWindow.loadURL("https://codeanywhere.com/logout");
-                    }
-                },
-                this.menuSeparator(),
-                this.menuAbout(),
-                this.menuQuit()
-            ]
-        }]);
+        return ModuleElectron.Menu.buildFromTemplate([
+            {
+                'label': 'File',
+                submenu: [
+                    this.menuQuit()
+                ]
+            },
+            {
+                'label': 'View',
+                submenu: [
+                    {role: 'reload'},
+                    {role: 'forcereload'},
+                    {type: 'separator'},
+                    {role: 'togglefullscreen'},
+                    {role: 'resetzoom'},
+                    {role: 'zoomin'},
+                    {role: 'zoomout'},
+                ]
+            },
+            {
+                label: 'Page',
+                submenu: [
+                    {
+                        label: 'Logout',
+                        click: function () {
+                            ModuleWindow.loadURL("https://codeanywhere.com/logout");
+                        }
+                    },
+                ]
+            },
+            {
+                label: 'Help',
+                submenu: [
+                    this.menuDevTools(),
+                    {type: 'separator'},
+                    this.menuAbout(),
+                ]
+            }
+        ]);
     },
 
     getTrayMenu: function () {
 
         return ModuleElectron.Menu.buildFromTemplate([
             {
-                label: 'Show App',
+                label: 'Show Window',
                 click: function () {
                     ModuleWindow.show();
                 }
             },
-            // {
-            //     label: 'Toggle DevTools',
-            //     accelerator: 'Alt+Command+I',
-            //     click: function () {
-            //         ModuleWindow.show();
-            //         ModuleWindow.toggleDevTools();
-            //     }
-            // },
-            this.menuSeparator(),
+            {type: 'separator'},
             this.menuAbout(),
             this.menuQuit()
         ]);
 
-    },
-
-    menuSeparator: function () {
-        return { type: 'separator' }
     },
 
     menuAbout: function () {
@@ -55,7 +68,7 @@ module.exports = {
     menuQuit: function () {
         return {
             label: 'Quit',
-            accelerator: 'Command+Q',
+            // accelerator: 'Command+Q',
             selector: 'terminate:',
             click: function () {
                 ModuleElectron.app.isQuiting = true;
@@ -63,7 +76,18 @@ module.exports = {
             }
         };
     },
-    
+
+    menuDevTools: function () {
+        return {
+            label: 'Toggle DevTools',
+            accelerator: 'Alt+Command+I',
+            click: function () {
+                ModuleWindow.show();
+                ModuleWindow.toggleDevTools();
+            }
+        };
+    },
+
     aboutWindow: function () {
         let openAboutWindow = require('about-window').default;
         openAboutWindow({
