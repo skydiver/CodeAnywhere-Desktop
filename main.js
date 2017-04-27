@@ -5,12 +5,13 @@ const path = require('path');
 const url = require('url');
 const windowStateKeeper = require('electron-window-state');
 
-let mainWindow;
-let Tray;
-
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const Tray = electron.Tray;
 const iconPath = path.join(__dirname, config.icon);
+
+let mainWindow;
+let appIcon;
 
 function createWindow() {
 
@@ -46,11 +47,9 @@ function createWindow() {
     mainWindow.setMenu(appMenu.getMenuBar());
 
     /* Show tray icon */
-    Tray = electron.Tray;
-    let contextMenu = appMenu.getTrayMenu();
-    let appIcon = new Tray(iconPath);
+    appIcon = new Tray(iconPath);
     appIcon.setToolTip('CodeAnywhere Desktop');
-    appIcon.setContextMenu(contextMenu);
+    appIcon.setContextMenu(appMenu.getTrayMenu());
 
     /* Remember window state */
     mainWindowState.manage(mainWindow);
